@@ -1,20 +1,20 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-import os, random, collections
+import os, sys, random, collections
 
 
 
-def load_words(arg):
+def load_words(arg='some'):
     if arg == 'all':
         #words accepted as valid on entry
-        with open(f'{turd_dir}/Resources/English Words/words_alpha.txt') as f:
+        with open(f'{turd_dir}/Resources/English/words_alpha.txt') as f:
             valid_words = [w for w in f.read().split() if len(w) == 5]
 
         return valid_words
 
     else:
         #acceptable words to generate so that it doesn't pick 'fconv' or some shit
-        with open(f'{turd_dir}/Resources/English Words/shitlesscorn.txt') as f:
+        with open(f'{turd_dir}/Resources/English/shitlesscorn.txt') as f:
             valid_words = f.read().split()
 
         return valid_words
@@ -290,7 +290,7 @@ def reset():
 
     word_shown = False
     rand_word = random.choice(reasonable_words)
-    print(f'random word is {rand_word}')
+    # print(f'random word is {rand_word}')
 
     known = ['_', '_', '_', '_', '_']
     show_var.set(f'_ _ _ _ _')
@@ -306,15 +306,14 @@ def reset():
         b.configure(style='TButton')
 
 #---------------------------------------------------------
-
 turd_dir = os.path.dirname(__file__)
 
 all_words = load_words('all')
-reasonable_words = load_words('some')
+reasonable_words = load_words()
 rand_word = random.choice(reasonable_words)
 
-print(f'choosing from {len(reasonable_words)} words')
-print(f'random word is {rand_word}')
+# print(f'choosing from {len(reasonable_words)} words')
+# print(f'random word is {rand_word}')
 
 labs = []
 btns = {}
@@ -325,11 +324,11 @@ word_shown = False
 
 root = Tk()
 
-ttk.Style().configure('SemiDisable.TButton', )
+ttk.Style().configure('SemiDisable.TButton', foreground='light gray')
 
 img = {}
 for name in ['dark', 'light', 'green', 'yellow', 'red', 'empty', 'empty_wide']:
-    img.update({name : PhotoImage(file=f'{turd_dir}/Resources/{name}.gif')})
+    img.update({name : PhotoImage(file=f'{turd_dir}/Resources/Images/{name}.gif')})
 
 load_gui(root)
 root.mainloop()
